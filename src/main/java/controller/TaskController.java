@@ -27,7 +27,7 @@ public class TaskController {
         try {
             
             connection = ConnectionFactory.getConnection();
-            statement = connection.prepareCall(sql);
+            statement = connection.prepareStatement(sql);
             statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());
@@ -66,7 +66,7 @@ public class TaskController {
         
         try {
             connection = ConnectionFactory.getConnection();
-            statement = connection.prepareCall(sql);
+            statement = connection.prepareStatement(sql);
             statement.setInt(1, task.getIdProject());
             statement.setString(2, task.getName());
             statement.setString(3, task.getDescription());

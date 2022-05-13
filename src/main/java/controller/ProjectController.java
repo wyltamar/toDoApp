@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.Project;
@@ -19,12 +20,7 @@ public class ProjectController {
     public void save(Project project){
         
         //String que representa o query de inserção de projects no banco de dados
-        String sql = "INSERT INTO projects("
-                + "name, "
-                + "description, "
-                + "createdAt, "
-                + "updatedAt)"
-                + "VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO projects(name, description, createdAt, updatedAt) VALUES(?, ?, ?, ?)";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -39,14 +35,18 @@ public class ProjectController {
             
             //Setando o statement com dados do objeto passado como parâmetro 
             //para salvar os dados no banco
-            statement.setString(1, project.getName());
-            statement.setString(2, project.getDescription());
-            statement.setDate(3,new Date(project.getCreatedAt().getTime()));
-            statement.setDate(4,new Date(project.getUpdatedAt().getTime()));
+            statement.setString(1,project.getName());
+            statement.setString(2,project.getDescription());
+            statement.setDate(3, new Date(project.getCreatedAt().getTime()));
+            statement.setDate(4, new Date(project.getUpdatedAt().getTime()));
             statement.execute();
             
+        }catch(SQLException e){
+            e.printStackTrace();
+            throw new RuntimeException("Erro de SQL ");
         } catch (Exception ex) {
-            throw new RuntimeException("Erro ao inserir Projeto" +ex.getMessage());
+            ex.printStackTrace();
+            throw new RuntimeException("Erro ao inserir Projeto " );
         }finally{
             ConnectionFactory.closeConnection(connection, statement);
         }

@@ -1,8 +1,8 @@
 
 package TodoApp;
 
-import java.sql.Connection;
-import util.ConnectionFactory;
+import controller.ProjectController;
+import model.Project;
 
 /**
  *
@@ -10,15 +10,17 @@ import util.ConnectionFactory;
  */
 public class Main {
 
-    
     public static void main(String[] args) {
     
-        Connection connection = ConnectionFactory.getConnection();
+        ProjectController projectController = new ProjectController();
         
-        if(connection != null){
-            System.out.println("Tudo certo com a conexão");
-        }
-            
+        Project project = new Project();
+        project.setName("Comanda");
+        project.setDescription("Informatizar comandas");
+        
+        
+        projectController.save(project);
+        
     }
     
 }
