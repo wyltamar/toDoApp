@@ -1,12 +1,15 @@
 model/Task.java
  model.Task
-TodoApp/Main.java
- TodoApp.Main
-controller/TaskController.java
- controller.TaskController
-model/Project.java
- model.Project
-util/ConnectionFactory.java
- util.ConnectionFactory
 controller/ProjectController.java
  controller.ProjectController
+util/ConnectionFactory.java
+ util.ConnectionFactory
+model/Project.java
+ model.Project
+controller/TaskController.java
+ controller.TaskController
+view/MainScreen.java
+ view.MainScreen
+ view.MainScreen$1
+main/Main.java
+ main.Main

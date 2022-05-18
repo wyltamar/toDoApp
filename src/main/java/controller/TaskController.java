@@ -50,14 +50,13 @@ public class TaskController {
     
     public void update(Task task){
         
-        String sql = "UPDATE tasks SET"
-                + " idProject = ?,"
+        String sql = "UPDATE tasks SET idProject = ?,"
                 + "name = ?,"
                 + "description = ?,"
-                + "completed = ?"
-                + "notes = ?"
-                + "deadline = ?"
-                + "createdAt = ?"
+                + "completed = ?,"
+                + "notes = ?,"
+                + "deadline = ?,"
+                + "createdAt = ?,"
                 + "updatedAt = ?"
                 + "WHERE id = ?";
         
@@ -88,9 +87,9 @@ public class TaskController {
     
     }
 
-    public void removeById(int taskId) throws SQLException{
+    public void removeById(int idProject, int taskId) throws SQLException{
         
-        String sql = "DELETE FROM tasks WHERE id = ?";
+        String sql = "DELETE FROM tasks WHERE idProject = ? and id = ?";
         
         Connection conn = null;
         PreparedStatement statement = null;
@@ -99,7 +98,8 @@ public class TaskController {
             
             conn = ConnectionFactory.getConnection();
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, taskId);
+            statement.setInt(1, idProject);
+            statement.setInt(2,taskId);
             statement.execute();
             
         } catch (SQLException e) {

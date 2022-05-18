@@ -59,8 +59,7 @@ public class ProjectController {
                 + "name = ?,"
                 + "description = ?,"
                 + "createdAt = ?,"
-                + "updatedAt = ?,"
-                + "WHERE id = ?";
+                + "updatedAt = ?  WHERE id = ?";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -106,9 +105,9 @@ public class ProjectController {
         
     }
     
-    public List<Project> getAll(String description){
+    public List<Project> getAll(){
         
-        String sql = "SELECT * FROM projects where description like %?%";
+        String sql = "SELECT * FROM projects";
         
         Connection connection = null;
         PreparedStatement statement = null;
@@ -120,7 +119,6 @@ public class ProjectController {
             
             connection = ConnectionFactory.getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, description);
             resultset = statement.executeQuery();
        
             
