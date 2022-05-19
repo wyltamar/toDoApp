@@ -8,8 +8,20 @@ model/Project.java
  model.Project
 controller/TaskController.java
  controller.TaskController
+main/Main.java
+ main.Main
+view/TaskDialogScreen.java
+ view.TaskDialogScreen
+ view.TaskDialogScreen$1
+ view.TaskDialogScreen$2
+ view.TaskDialogScreen$3
+ view.TaskDialogScreen$3$1
+view/ProjectDialogScreen.java
+ view.ProjectDialogScreen
+ view.ProjectDialogScreen$1
+ view.ProjectDialogScreen$1$1
 view/MainScreen.java
  view.MainScreen
  view.MainScreen$1
-main/Main.java
- main.Main
+ view.MainScreen$2
+ view.MainScreen$3
