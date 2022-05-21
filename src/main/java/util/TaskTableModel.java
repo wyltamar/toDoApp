@@ -10,7 +10,7 @@ import model.Task;
  *
  * @author Wyltamar
  */
-public class TaskModel extends AbstractTableModel {
+public class TaskTableModel extends AbstractTableModel {
     
     String[] columns = {"Nome", "Descrição", "Prazo", "Tarefa concluída", "Editar", "Excluir"};
     List<Task> tasks = new ArrayList<Task>();
