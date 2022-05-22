@@ -21,6 +21,8 @@ view/ProjectDialogScreen.java
  view.ProjectDialogScreen$1
  view.ProjectDialogScreen$2
  view.ProjectDialogScreen$2$1
+util/TaskTableModel.java
+ util.TaskTableModel
 view/MainScreen.java
  view.MainScreen
  view.MainScreen$1
@@ -28,5 +30,4 @@ view/MainScreen.java
  view.MainScreen$3
  view.MainScreen$4
  view.MainScreen$5
-util/TaskTableModel.java
- util.TaskTableModel
+ view.MainScreen$6

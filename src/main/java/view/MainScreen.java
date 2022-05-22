@@ -211,6 +211,11 @@ public class MainScreen extends javax.swing.JFrame {
         jListProjects.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jListProjects.setFixedCellHeight(50);
         jListProjects.setSelectionBackground(new java.awt.Color(0, 153, 102));
+        jListProjects.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListProjectsMouseClicked(evt);
+            }
+        });
         jScrollPaneProjects.setViewportView(jListProjects);
 
         javax.swing.GroupLayout jPanelProjectListLayout = new javax.swing.GroupLayout(jPanelProjectList);
@@ -264,6 +269,11 @@ public class MainScreen extends javax.swing.JFrame {
         jTableTasks.setSelectionBackground(new java.awt.Color(204, 255, 204));
         jTableTasks.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableTasks.setShowVerticalLines(false);
+        jTableTasks.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableTasksMouseClicked(evt);
+            }
+        });
         jScrollPaneTasks.setViewportView(jTableTasks);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -332,6 +342,31 @@ public class MainScreen extends javax.swing.JFrame {
         //taskDialogScreen.setProject(null);
         taskDialogScreen.setVisible(true);
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
+
+    private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
+        // TODO add your handling code here:
+        
+        int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
+        int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
+        
+        switch(columnIndex){
+            case 3:
+                Task task = taskModel.getTasks().get(rowIndex);
+                taskController.update(task);
+                break;
+
+        }
+    }//GEN-LAST:event_jTableTasksMouseClicked
+
+    private void jListProjectsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProjectsMouseClicked
+        // TODO add your handling code here:
+        
+        int projectIndex = jListProjects.getSelectedIndex();
+        Project project = (Project)projectsModel.get(projectIndex);
+        loadTasks(projectIndex);
+        
+        
+    }//GEN-LAST:event_jListProjectsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -417,6 +452,31 @@ public class MainScreen extends javax.swing.JFrame {
     public void loadTasks(int idProject){
         List<Task> tasks = taskController.getAll(idProject);
         taskModel.setTasks(tasks);
+    }
+    
+    private void showTableTasks(boolean hasTasks){
+        
+        if(hasTasks){
+            if(jPanelEmptyList.isVisible()){
+                jPanelEmptyList.setVisible(false);
+                jPanel1.remove(jPanelEmptyList);
+                
+                jPanel1.add(jScrollPaneTasks);
+                jScrollPaneTasks.setVisible(true);
+                jScrollPaneTasks.setSize(jPanel1.getWidth(), jPanel1.getHeight());
+            }
+            else{
+                if(jScrollPaneTasks.isVisible()){
+                    jScrollPaneTasks.setVisible(false);
+                    jPanel1.remove(jScrollPaneTasks);
+                }
+                
+                jPanel1.add(jPanelEmptyList);
+                jPanelEmptyList.setVisible(true);
+                jPanelEmptyList.setSize(jPanel1.getWidth(), jPanel1.getHeight());
+            }
+        }
+        
     }
     
     public void loadProjects(){
