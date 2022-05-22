@@ -27,3 +27,6 @@ view/MainScreen.java
  view.MainScreen$2
  view.MainScreen$3
  view.MainScreen$4
+ view.MainScreen$5
+util/TaskTableModel.java
+ util.TaskTableModel
