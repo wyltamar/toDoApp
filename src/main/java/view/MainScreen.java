@@ -61,6 +61,8 @@ public class MainScreen extends javax.swing.JFrame {
         jScrollPaneTasks = new javax.swing.JScrollPane();
         jTableTasks = new javax.swing.JTable();
 
+        jPanelEmptyList.setBorder(new javax.swing.border.MatteBorder(null));
+
         jLabelEmptyListIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelEmptyListIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/lists.png"))); // NOI18N
 
@@ -236,6 +238,7 @@ public class MainScreen extends javax.swing.JFrame {
         );
 
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+        jPanel1.setLayout(new java.awt.BorderLayout());
 
         jTableTasks.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTableTasks.setModel(new javax.swing.table.DefaultTableModel(
@@ -276,18 +279,7 @@ public class MainScreen extends javax.swing.JFrame {
         });
         jScrollPaneTasks.setViewportView(jTableTasks);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPaneTasks, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPaneTasks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
+        jPanel1.add(jScrollPaneTasks, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -339,8 +331,22 @@ public class MainScreen extends javax.swing.JFrame {
     private void jLabelTasksAddMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTasksAddMouseClicked
         // TODO add your handling code here:
         TaskDialogScreen taskDialogScreen = new TaskDialogScreen(this, rootPaneCheckingEnabled);
-        //taskDialogScreen.setProject(null);
+        
+        int projectIndex = jListProjects.getSelectedIndex();
+        Project project = (Project)projectsModel.get(projectIndex);
+        taskDialogScreen.setProject(project);
+        
         taskDialogScreen.setVisible(true);
+        
+        taskDialogScreen.addWindowListener(new WindowAdapter(){
+            
+            public void windowClosed(WindowEvent e){
+                
+                int projectIndex = jListProjects.getSelectedIndex();
+                Project project = (Project)projectsModel.get(projectIndex);
+                loadTasks(project.getId());
+            }
+        });
     }//GEN-LAST:event_jLabelTasksAddMouseClicked
 
     private void jTableTasksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableTasksMouseClicked
@@ -349,10 +355,23 @@ public class MainScreen extends javax.swing.JFrame {
         int rowIndex = jTableTasks.rowAtPoint(evt.getPoint());
         int columnIndex = jTableTasks.columnAtPoint(evt.getPoint());
         
+        Task task = taskModel.getTasks().get(rowIndex);
+        
         switch(columnIndex){
             case 3:
-                Task task = taskModel.getTasks().get(rowIndex);
+                
                 taskController.update(task);
+                break;
+            case 4:
+                break;
+                
+            case 5:
+                taskController.removeById(task.getId());
+                taskModel.getTasks().remove(task);
+                
+                int projectIndex = jListProjects.getSelectedIndex();
+                Project project = (Project)projectsModel.get(projectIndex);
+                loadTasks(project.getId());
                 break;
 
         }
@@ -446,12 +465,20 @@ public class MainScreen extends javax.swing.JFrame {
         taskModel = new TaskTableModel();
         jTableTasks.setModel(taskModel);
         
-        loadTasks(2);
+        
+        if(!projectsModel.isEmpty()){
+            jListProjects.setSelectedIndex(0);
+            
+            Project project = (Project)projectsModel.get(0);
+            loadTasks(project.getId());
+        }
     }
     
     public void loadTasks(int idProject){
         List<Task> tasks = taskController.getAll(idProject);
         taskModel.setTasks(tasks);
+        
+        showTableTasks(!tasks.isEmpty());
     }
     
     private void showTableTasks(boolean hasTasks){
@@ -460,12 +487,13 @@ public class MainScreen extends javax.swing.JFrame {
             if(jPanelEmptyList.isVisible()){
                 jPanelEmptyList.setVisible(false);
                 jPanel1.remove(jPanelEmptyList);
-                
-                jPanel1.add(jScrollPaneTasks);
+            }
+            
+             jPanel1.add(jScrollPaneTasks);
                 jScrollPaneTasks.setVisible(true);
                 jScrollPaneTasks.setSize(jPanel1.getWidth(), jPanel1.getHeight());
-            }
-            else{
+        }
+        else{
                 if(jScrollPaneTasks.isVisible()){
                     jScrollPaneTasks.setVisible(false);
                     jPanel1.remove(jScrollPaneTasks);
@@ -474,10 +502,9 @@ public class MainScreen extends javax.swing.JFrame {
                 jPanel1.add(jPanelEmptyList);
                 jPanelEmptyList.setVisible(true);
                 jPanelEmptyList.setSize(jPanel1.getWidth(), jPanel1.getHeight());
-            }
-        }
-        
+            }   
     }
+    
     
     public void loadProjects(){
         

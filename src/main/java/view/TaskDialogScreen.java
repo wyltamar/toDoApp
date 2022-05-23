@@ -202,7 +202,7 @@ public class TaskDialogScreen extends javax.swing.JDialog {
             task.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(strData));
             task.setNotes(jTextAreaNotes.getText());
             //task.setIdProject(project.getId());
-            task.setIdProject(2);
+            task.setIdProject(project.getId());
             taskController.save(task);
             JOptionPane.showMessageDialog(rootPane, "Tarefa cadastrada com sucesso!");
             

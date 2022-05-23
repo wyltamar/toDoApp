@@ -87,9 +87,9 @@ public class TaskController {
     
     }
 
-    public void removeById(int idProject, int taskId) throws SQLException{
+    public void removeById(int taskId){
         
-        String sql = "DELETE FROM tasks WHERE idProject = ? and id = ?";
+        String sql = "DELETE FROM tasks WHERE id = ?";
         
         Connection conn = null;
         PreparedStatement statement = null;
@@ -98,12 +98,9 @@ public class TaskController {
             
             conn = ConnectionFactory.getConnection();
             statement = conn.prepareStatement(sql);
-            statement.setInt(1, idProject);
-            statement.setInt(2,taskId);
+            statement.setInt(1,taskId);
             statement.execute();
-            
-        } catch (SQLException e) {
-            throw new SQLException("Erro de SQL "+e.getMessage());
+           
         }catch(Exception ex){
             throw new RuntimeException("Erro ao deletar Task: "+ex.getMessage());
         }finally{

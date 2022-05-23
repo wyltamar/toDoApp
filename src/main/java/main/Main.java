@@ -64,7 +64,7 @@ public class Main {
             
             System.out.println("Qantidades de tasks cadastradas: "+tasks.size());
             
-            taskController.removeById(3, 2);
+            taskController.removeById(5);
             
     }
     
