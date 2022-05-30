@@ -382,7 +382,7 @@ public class MainScreen extends javax.swing.JFrame {
         
         int projectIndex = jListProjects.getSelectedIndex();
         Project project = (Project)projectsModel.get(projectIndex);
-        loadTasks(projectIndex);
+        loadTasks(project.getId());
         
         
     }//GEN-LAST:event_jListProjectsMouseClicked
