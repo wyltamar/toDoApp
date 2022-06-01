@@ -4,6 +4,24 @@ view/TaskDialogScreen.java
  view.TaskDialogScreen$2
  view.TaskDialogScreen$3
  view.TaskDialogScreen$3$1
+util/TaskTableModel.java
+ util.TaskTableModel
+controller/ProjectController.java
+ controller.ProjectController
+model/Task.java
+ model.Task
+controller/TaskController.java
+ controller.TaskController
+main/Main.java
+ main.Main
+util/ButtonColumnCellRederer.java
+ util.ButtonColumnCellRederer
+util/DeadlineColumnCellRederer.java
+ util.DeadlineColumnCellRederer
+model/Project.java
+ model.Project
+util/ConnectionFactory.java
+ util.ConnectionFactory
 view/ProjectDialogScreen.java
  view.ProjectDialogScreen
  view.ProjectDialogScreen$1
@@ -19,21 +37,3 @@ view/MainScreen.java
  view.MainScreen$6
  view.MainScreen$7
  view.MainScreen$8
-model/Task.java
- model.Task
-controller/TaskController.java
- controller.TaskController
-main/Main.java
- main.Main
-util/ButtonColumnCellRederer.java
- util.ButtonColumnCellRederer
-util/DeadlineColumnCellRederer.java
- util.DeadlineColumnCellRederer
-model/Project.java
- model.Project
-util/ConnectionFactory.java
- util.ConnectionFactory
-controller/ProjectController.java
- controller.ProjectController
-util/TaskTableModel.java
- util.TaskTableModel
