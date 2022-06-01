@@ -194,23 +194,32 @@ public class TaskDialogScreen extends javax.swing.JDialog {
         
         try {
         
-            String strData = jFormattedTextFieldDeadline.getText();
+            if(!jTextFieldFormTasksName.getText().isEmpty() && 
+                    !jFormattedTextFieldDeadline.getText().isEmpty()){
+                
+                String strData = jFormattedTextFieldDeadline.getText();
         
-            Task task = new Task();
-            task.setName(jTextFieldFormTasksName.getText());
-            task.setDescription(jTextAreaFormTaskDescription.getText());
-            task.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(strData));
-            task.setNotes(jTextAreaNotes.getText());
-            task.setIsCompleted(false);
-            task.setIdProject(project.getId());
-            taskController.save(task);
-            JOptionPane.showMessageDialog(rootPane, "Tarefa cadastrada com sucesso!");
+                Task task = new Task();
+                task.setName(jTextFieldFormTasksName.getText());
+                task.setDescription(jTextAreaFormTaskDescription.getText());
+                task.setDeadline(new SimpleDateFormat("dd/MM/yyyy").parse(strData));
+                task.setNotes(jTextAreaNotes.getText());
+                task.setIsCompleted(false);
+                task.setIdProject(project.getId());
+                taskController.save(task);
+                JOptionPane.showMessageDialog(rootPane, "Tarefa cadastrada com sucesso!");
+                
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(rootPane, "Não foi possível salvar a tarefa pois "
+                        + "algum campo obrigatório não foi informado!");
+            }
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(rootPane, e.getMessage());
         }
         
-        this.dispose();
+        
         
     }//GEN-LAST:event_jLabelToolBarSaveMouseClicked
 
